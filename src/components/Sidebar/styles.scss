@@ -1,0 +1,15 @@
+@import "../../variables";
+
+.sidebar {
+  background-color: $mediumTurquoise;
+  width: 60px;
+  height: 100%;
+
+  @media screen and (min-width: $screen-md-min) {
+    width: 270px;
+  }
+
+  @media screen and (min-width: $screen-lg-min) {
+    width: 300px;
+  }
+}
