@@ -21,3 +21,13 @@ $black:    #000 !default;
 // Fonts
 
 $font-family-sans-serif: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+
+// Break points
+// Small screen / phone
+$screen-sm-min: 576px;
+// Medium screen / tablet
+$screen-md-min: 768px;
+// Large screen / desktop
+$screen-lg-min: 992px;
+// Extra large screen / wide desktop
+$screen-xl-min: 1200px;
