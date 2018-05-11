@@ -2,41 +2,6 @@
 
 .channel-list {
   padding: 0 1em;
-}
-
-.channel {
-  display: flex;
-  padding: 1em;
-
-  &:hover {
-    cursor: pointer;
-    background-color: darken($mediumTurquoise, 20%);
-  }
-
-  &.active {
-    background-color: darken($mediumTurquoise, 20%);
-  }
-
-  .profile-picture-container {
-    width: 40px;
-    height: 40px;
-
-    .profile-picture {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-    }
-  }
-
-  .channel-info {
-    display: flex;
-    align-items: center;
-    padding-left: 1rem;
-  }
-
-  .channel-title {
-    margin: 0;
-    color: $mintCream;
-    font-size: 1em;
-  }
+  max-height: 90%;
+  overflow: auto;
 }

@@ -1,35 +1,14 @@
-import * as React from "react";
+import React, { SFC } from "react";
+import Channel from "../Channel";
 
-const ChannelList = () => (
+type Props = {
+  channels?: any[]
+};
+
+const ChannelList: SFC<Props> = ({ channels }) => (
   <div className="channels-list">
-    <div className="channel">
-      <div className="profile-picture-container">
-        <img
-          className="profile-picture"
-          src="https://api.adorable.io/avatars/60/abott@adorable.png"
-          alt="adorable-avatar"
-        />
-      </div>
-      <div className="channel-info">
-        <h4 className="channel-title">
-          Username
-            </h4>
-      </div>
-    </div>
-    <div className="channel active">
-      <div className="profile-picture-container">
-        <img
-          className="profile-picture"
-          src="https://api.adorable.io/avatars/60/abott@adorable.png"
-          alt="adorable-avatar"
-        />
-      </div>
-      <div className="channel-info">
-        <h4 className="channel-title">
-          Username
-            </h4>
-      </div>
-    </div>
+    <Channel />
+    <Channel />
   </div>
 );
 
