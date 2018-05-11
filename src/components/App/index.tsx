@@ -1,5 +1,6 @@
 import * as React from "react";
 import Sidebar from "../Sidebar";
+import Main from "../Main";
 import "./styles.scss";
 
 class App extends React.Component {
@@ -8,6 +9,7 @@ class App extends React.Component {
     return (
       <div className="chat-app">
         <Sidebar />
+        <Main />
       </div>
     );
   }
