@@ -1,4 +1,5 @@
 import React, { SFC } from "react";
+import "./styles.scss";
 
 type Props = {
   title?: string
@@ -6,7 +7,7 @@ type Props = {
 
 const ConversationHeader: SFC<Props> = ({ title }) => (
   <div className="header">
-    {title}
+    <h2 className="title">{title}</h2>
   </div>
 );
 
