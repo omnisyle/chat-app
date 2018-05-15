@@ -1,5 +1,6 @@
-import * as React from "react";
+import React from "react";
 import Conversation from "../Conversation";
+import ConversationHeader from "../ConversationHeader";
 import "./styles.scss";
 
 class MainContainer extends React.Component {
@@ -8,9 +9,7 @@ class MainContainer extends React.Component {
 
     return (
       <div className="main-container">
-        <div className="header">
-          Convo Header
-        </div>
+        <ConversationHeader title="Convo Header" />
         <Conversation />
       </div>
     );
