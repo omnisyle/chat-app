@@ -1,0 +1,24 @@
+@import "../../variables";
+
+.message-form {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+
+  .message-input {
+    width: 100%;
+    font-size: 0.8em;
+    border-radius: 5px;
+    padding: 0.5em;
+    resize: unset;
+    box-sizing: border-box;
+  }
+
+  .send-btn {
+    border-radius: 50%;
+    padding: 0.6rem;
+    color: $pastelRed;
+    border: 1px $pastelRed solid;
+    margin-left: 0.5rem;
+  }
+}
