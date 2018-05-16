@@ -17,8 +17,13 @@
   .send-btn {
     border-radius: 50%;
     padding: 0.6rem;
-    color: $pastelRed;
-    border: 1px $pastelRed solid;
+    color: $englishGreen;
+    border: 1px $englishGreen solid;
     margin-left: 0.5rem;
+
+    &:hover {
+      background-color: $englishGreen;
+      color: $mintCream;
+    }
   }
 }
