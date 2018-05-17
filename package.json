@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production --optimize-minimize --optimize-dedupe",
+    "build": "webpack --config webpack.config.prod.js --mode production --optimize-minimize --optimize-dedupe",
     "export-bundle-analyzer": "webpack --profile --json > stats.json",
     "view-bundle-stats": "webpack-bundle-analyzer ./stats.json"
   },

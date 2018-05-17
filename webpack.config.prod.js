@@ -1,5 +1,4 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const path = require('path');
 const webpack = require('webpack');
 
@@ -14,8 +13,6 @@ module.exports = {
     filename: "bundle.js",
     path: __dirname + "/dist"
   },
-  // Enable sourcemaps for debugging webpack's output.
-  devtool: "source-map",
   resolve: {
     // Add '.ts' and '.tsx' as a resolvable extension.
     extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
@@ -29,13 +26,11 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: {
-          loader: "ts-loader"
+          loader: "ts-loader",
+          options: {
+            configFile: "tsconfig.prod.json"
+          }
         }
-      },
-      {
-        enforce: "pre",
-        test: /\.js$/,
-        loader: "source-map-loader"
       },
       {
         test: /\.scss$/,
@@ -46,10 +41,8 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              modules: true,
-              importLoaders: 1,
-              localIdentName: "[name]_[local]_[hash:base64]",
-              sourceMap: true,
+              modules: false,
+              sourceMap: false,
               minimize: true
             }
           },
@@ -70,7 +63,6 @@ module.exports = {
   },
   plugins: [
     htmlPlugin,
-    new BundleAnalyzerPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     })
