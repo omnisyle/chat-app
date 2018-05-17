@@ -1,0 +1,60 @@
+@import "../../variables";
+
+.message {
+
+  display: flex;
+  margin-bottom: 0.5rem;
+
+  .profile-picture-container {
+    width: 40px;
+    height: 40px;
+  }
+
+  .owner-profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+  .message-detail {
+    max-width: 45%;
+    background-color: white;
+    border-radius: 5px;
+    color: $gray-800;
+    border: 1px solid $englishGreen;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    font-size: 0.75em;
+    padding: 0.5rem;
+  }
+
+  &.continued {
+
+    .owner-profile-picture {
+      display: none;
+    }
+  }
+
+  &.left {
+
+    .profile-picture-container {
+      order: 1
+    }
+
+    .message-detail {
+      order: 2
+    }
+  }
+
+  &.right {
+    justify-content: flex-end;
+
+    .profile-picture-container {
+      order: 2
+    }
+
+    .message-detail {
+      order: 1
+    }
+  }
+}
