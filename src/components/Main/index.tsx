@@ -1,4 +1,5 @@
 import React from "react";
+import { Route } from "react-router-dom";
 import Conversation from "../Conversation";
 import ConversationHeader from "../ConversationHeader";
 import MessageForm from "../MessageForm";
@@ -10,9 +11,16 @@ class MainContainer extends React.Component {
 
     return (
       <div className="main-container">
-        <ConversationHeader title="Convo Header" />
-        <Conversation />
-        <MessageForm />
+        <Route path="/ch/:channelID" render={({ match }) => {
+          return (
+            <>
+              <p>{match.params.channelID}</p>
+              <ConversationHeader title="Convo Header" />
+              <Conversation />
+              <MessageForm />
+            </>
+          );
+        }} />
       </div>
     );
   }
