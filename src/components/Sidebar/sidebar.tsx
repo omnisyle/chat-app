@@ -7,6 +7,11 @@ const Sidebar = () => (
   >
     <div className="sidebar-header">
       <h2 className="sidebar-title">Channels</h2>
+      <div className="actions">
+        <a href="#" className="add-channel">
+          <i className="fa fa-plus"></i>
+        </a>
+      </div>
     </div>
     <div className="sidebar-body">
       <ChannelList />

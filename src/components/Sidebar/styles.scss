@@ -19,12 +19,22 @@
   .sidebar-header {
     display: flex;
     padding: 1rem;
-  }
+    align-items: center;
+    justify-content: space-between;
 
-  .sidebar-title {
-    margin: 0;
-    color: $mintCream;
-    height: 100%;
-    font-size: 1.1em;
+    .sidebar-title {
+      margin: 0;
+      color: $mintCream;
+      height: 100%;
+      font-size: 1.1em;
+    }
+
+    .add-channel {
+      color: white;
+
+      &:hover {
+        color: $maize;
+      }
+    }
   }
 }
