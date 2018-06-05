@@ -1,9 +1,15 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const autoprefixer = require('autoprefixer');
 
 const htmlPlugin = new HtmlWebPackPlugin({
   template: "./src/index.html",
   filename: "./index.html"
+});
+
+const miniCssPlugin = new MiniCssExtractPlugin({
+  filename: 'style.css'
 });
 
 module.exports = {
@@ -46,13 +52,13 @@ module.exports = {
             loader: "style-loader"
           },
           {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
             loader: "css-loader",
-            options: {
-              modules: false,
-              importLoaders: 1,
-              sourceMap: true,
-              minimize: true
-            }
+          },
+          {
+            loader: "postcss-loader"
           },
           {
             loader: "sass-loader"
@@ -69,5 +75,9 @@ module.exports = {
       }
     ]
   },
-  plugins: [htmlPlugin]
+  plugins: [
+    htmlPlugin,
+    autoprefixer,
+    miniCssPlugin
+  ]
 };
