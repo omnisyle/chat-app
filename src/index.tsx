@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { render } from "react-dom";
+
+import Root from "./components/Root";
 import "./styles.scss";
 
-import App from "./components/App";
-
 ReactDOM.render(
-    <App />,
-    document.getElementById("chat-app-container")
+  <Root />,
+  document.getElementById("chat-app-container")
 );
