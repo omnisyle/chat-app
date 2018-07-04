@@ -2,6 +2,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
+const Dotenv = require('dotenv-webpack');
 
 const htmlPlugin = new HtmlWebPackPlugin({
   template: "./src/index.html",
@@ -11,6 +12,8 @@ const htmlPlugin = new HtmlWebPackPlugin({
 const miniCssPlugin = new MiniCssExtractPlugin({
   filename: 'style.css'
 });
+
+const dotEnv = new Dotenv();
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -78,6 +81,7 @@ module.exports = {
   plugins: [
     htmlPlugin,
     autoprefixer,
-    miniCssPlugin
+    miniCssPlugin,
+    dotEnv
   ]
 };
