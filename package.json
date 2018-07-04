@@ -10,7 +10,7 @@
     "view-bundle-stats": "webpack-bundle-analyzer ./stats.json"
   },
   "keywords": [],
-  "author": "",
+  "author": "omnisyle",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^8.6.0",
@@ -32,14 +32,17 @@
     "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.110",
     "@types/react": "^16.3.16",
     "@types/react-dom": "^16.0.5",
     "@types/react-router-dom": "^4.2.7",
+    "dotenv-webpack": "^1.5.7",
+    "firebase": "^5.0.4",
+    "lodash": "^4.17.10",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-redux": "^5.0.7",
+    "react-firebaseui": "^3.0.4",
     "react-router-dom": "^4.2.2",
-    "redux": "^4.0.0",
     "tslib": "^1.9.2"
   }
 }
