@@ -1,7 +1,7 @@
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import User from "./../models/user";
+import User from "../models/user";
 
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -14,25 +14,95 @@ const config = {
 
 firebase.initializeApp(config);
 
-function onSignIn(callback: (user: User) => void): () => void {
+const firebaseUser = firebase.auth().currentUser;
 
-  const unregisterObserver = firebase.auth().onAuthStateChanged(
-    (user) => {
-      const userModel : User = new User(
-        user.uid,
-        user.displayName,
-        user.email
-      );
+class ApiService {
 
-      callback(userModel);
+  static currentUser : User = firebaseUser ? new User(
+    firebaseUser.uid,
+    firebaseUser.displayName,
+    firebaseUser.email
+  ) : null;
+  static auth : CloudAuth = firebase.auth();
+  static database : CloudDB = firebase.firestore();
+
+  collection(path: string) : CollectionRef {
+    return ApiService.database.collection(path);
+  }
+
+  doc(path: string) : DocRef {
+    return ApiService.database.doc(path);
+  }
+
+  get(path: string) : Promise<DBObject> {
+    return new Promise<DBObject>((resolve, reject) => {
+      const docRef : DocRef = ApiService.database.doc(path);
+      const request : Promise<DocumentSnapshot> = docRef.get();
+
+      request.then((snapshot : DocumentSnapshot) => {
+        const dbObject : DBObject = {
+          id: docRef.id,
+          ref: docRef,
+          data: snapshot.data(),
+        };
+        return dbObject;
+      });
+    });
+  }
+
+  create(collection: string, params: object) : Promise<DBObject> {
+    return new Promise<DBObject>((resolve, reject) => {
+      const request : Promise<DocRef> = this.collection(collection).add(params);
+
+      request.then((docRef) => {
+        const dbObject : DBObject = {
+          id: docRef.id,
+          ref: docRef,
+          data: params
+        };
+        resolve(dbObject);
+      }).catch(reject);
+    });
+  }
+
+  update(path: string, params: object) : Promise<DBObject> {
+    return new Promise<DBObject>((resolve, reject) => {
+      const docRef : DocRef = this.doc(path);
+      const updateRequest : Promise<void> = docRef.update(params);
+
+      updateRequest
+        .then(() => docRef.get())
+        .then((snapshot : DocumentSnapshot) => {
+
+          const dbObject : DBObject = {
+            id: docRef.id,
+            ref: docRef,
+            data: snapshot.data(),
+          }
+
+          resolve(dbObject);
+        });
+    });
+  }
+
+  delete(path: string) : Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const docRef : DocRef = this.doc(path);
+      docRef.delete().then(resolve).catch(reject);
+    });
+  }
+
+  subscribeToQuery(collection: string, queries: DBWhereClause[], callback: (snapshot : QuerySnapshot) => void) : CollectionUnsubscribe {
+    let collectionRef : CollectionRef | DbQuery = this.collection(collection);
+
+    if (queries.length > 0) {
+      queries.forEach((query : DBWhereClause) => {
+        collectionRef = collectionRef.where(query[0], query[1], query[2]);
+      });
     }
-  );
 
-  return unregisterObserver;
+    return collectionRef.onSnapshot(callback);
+  }
 }
 
-export default firebase;
-
-export {
-  onSignIn
-};
+export default ApiService;
