@@ -1,5 +1,5 @@
 import React from "react";
-import { onSignIn } from "./api_service";
+import AuthService from "./auth_service";
 import User from "../models/user";
 
 interface ProviderState {
@@ -27,7 +27,7 @@ class UserProvider extends React.Component<{}, ProviderState> {
   unregisterAuthChanged: () => void;
 
   componentDidMount() {
-    this.unregisterAuthChanged = onSignIn(
+    this.unregisterAuthChanged = AuthService.onUserSignedIn(
       (user: User) => {
         this.update({ key: "user", value: user });
       }

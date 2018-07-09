@@ -5,18 +5,20 @@ import { isEmpty } from "../../utils/";
 
 const PrivateRoute = ({ component: Component, ...rest } : RouteProps) => {
 
-   const renderComponent = (props: RouteComponentProps<any, any>) : React.ReactNode => {
+   const renderComponent = (props: any) : React.ReactNode => {
     return (
       <UserConsumer>
         {
           (store) => {
             if (isEmpty(store.state.user)) {
-              return (<Redirect
-                to={{
+              return (
+                <Redirect
+                  to={{
                     pathname: "/login",
                     state: { from: rest.location }
                   }}
-              />);
+                />
+                );
             } else {
               return (<Component {...props} />);
             }
