@@ -1,43 +1,35 @@
-import React, { Component } from "react";
+import React, { SFC } from "react";
+import { Redirect } from "react-router-dom";
 import { UserConsumer } from "../../services/user_context";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import ApiService from "../../services/api_service";
+import AuthService, { SignInOptions } from "../../services/auth_service";
 import { isEmpty } from "../../utils/";
-import { Redirect } from "react-router-dom";
 
-class LoginContainer extends Component<{}, {}> {
-  loginContainer: HTMLDivElement;
+const uiConfig = {
+  signInFlow: "popup",
+  signInOptions: [ SignInOptions.Email ],
+  callbacks: {
+    signInSuccessWithAuthResult: () => false
+  },
+};
 
-  render() {
-
-    const uiConfig = {
-      signInFlow: "popup",
-      signInOptions: [
-        ApiService.auth.EmailAuthProvider.PROVIDER_ID,
-      ],
-      callbacks: {
-        signInSuccessWithAuthResult: () => false
-      },
-    };
-
-    return (
-      <UserConsumer>
-        {
-          (store) => {
-            if (isEmpty(store.state.user)) {
-              return (
-                <div className="login-container">
-                  <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={ApiService.auth()} />
-                </div>
-              );
-            } else {
-              return (<Redirect to={{ pathname: "/" }} />);
-            }
-          }
-        }
-      </UserConsumer>
-    );
-  }
-}
+const LoginContainer: SFC<{}> = () => (
+  <UserConsumer>
+    {(store) => {
+      if (isEmpty(store.state.user)) {
+        return (
+          <div className="login-container">
+            <StyledFirebaseAuth
+              uiConfig={uiConfig}
+              firebaseAuth={AuthService.auth}
+            />
+          </div>
+        );
+      } else {
+        return (<Redirect to={{ pathname: "/" }} />);
+      }
+    }}
+  </UserConsumer>
+);
 
 export default LoginContainer;
