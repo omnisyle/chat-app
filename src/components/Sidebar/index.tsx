@@ -1,20 +1,30 @@
 import React from "react";
-import Sidebar from "./sidebar";
+import ChannelList from "../ChannelList";
+import { UserConsumer } from "../../services/user_context";
 import "./styles.scss";
 
-class SidebarContainer extends React.Component {
+const Sidebar = () => (
+  <UserConsumer>
+    {(store) => {
+      const { user } =  store.state;
 
-  constructor(props: any) {
-    super(props);
-  }
+      return (
+        <div className="sidebar">
+          <div className="sidebar-header">
+            <h2 className="sidebar-title">{user.displayName}</h2>
+            <div className="actions">
+              <a href="#" className="add-channel">
+                <i className="fa fa-plus"></i>
+              </a>
+            </div>
+          </div>
+          <div className="sidebar-body">
+            <ChannelList />
+          </div>
+        </div>
+      );
+    }}
+  </UserConsumer>
+);
 
-  render() {
-
-    return (
-      <Sidebar
-      />
-    );
-  }
-}
-
-export default SidebarContainer;
+export default Sidebar;
