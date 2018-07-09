@@ -92,16 +92,45 @@ class ApiService {
     });
   }
 
-  subscribeToQuery(collection: string, queries: DBWhereClause[], callback: (snapshot : QuerySnapshot) => void) : CollectionUnsubscribe {
+  where(collection: string, where: DBWhereClause[]) : Promise<DbObject[]> {
+    return new Promise<DbObject[]> ((resolve, reject) => {
+      const query: DbQuery = this.query(collection, where);
+      const request = query.get();
+
+      request.then((results: QuerySnapshot) => {
+        const dbObjects : DbObject[] = [];
+
+        results.forEach((doc: QueryDocumentSnapshot) => {
+
+          const dbObject : DbObject = {
+            id: doc.id,
+            ref: doc.ref,
+            data: doc.data(),
+          };
+
+          dbObjects.push(dbObject);
+        });
+
+        resolve(dbObjects);
+      }).catch(reject);
+    });
+  }
+
+  subscribeToQuery(collection: string, where: DBWhereClause[], callback: (snapshot : QuerySnapshot) => void) : CollectionUnsubscribe {
+    const query : DbQuery = this.query(collection, where);
+    return query.onSnapshot(callback);
+  }
+
+  query(collection: string, where: DBWhereClause[]) : DbQuery {
     let collectionRef : CollectionRef | DbQuery = this.collection(collection);
 
-    if (queries.length > 0) {
-      queries.forEach((query : DBWhereClause) => {
+    if (where.length > 0) {
+      where.forEach((query : DBWhereClause) => {
         collectionRef = collectionRef.where(query[0], query[1], query[2]);
       });
     }
 
-    return collectionRef.onSnapshot(callback);
+    return collectionRef;
   }
 }
 

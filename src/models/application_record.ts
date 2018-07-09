@@ -29,11 +29,28 @@ abstract class ApplicationRecord {
     });
   }
 
+  static where<T extends ApplicationRecord>(this: (new () => T), where: DBWhereClause[]) : Promise<T[]>{
+    return new Promise<T[]> ((resolve, reject) => {
+      const pathName = `${ this["_collectionName"] }`;
+      const request = ApplicationRecord._apiService.where(pathName, where);
+
+      request.then((dbObjects: DbObject[]) => {
+
+        const results = dbObjects.map((dbObject: DbObject) => {
+          const record: T = new this();
+          return ApplicationRecord.mapDbObjectToRecord(record, dbObject);
+        });
+
+        resolve(results);
+      }).catch(reject);
+    });
+  }
+
   create<T extends ApplicationRecord>(this: (new() => T), params: any) : Promise<T> {
     return new Promise<T> ((resolve, reject) => {
       const request = ApplicationRecord._apiService.create(this["_collectionName"], params);
 
-      request.then((dbObject : DbObject) => {
+      request.then((dbObject: DbObject) => {
         const record : T = new this();
         resolve(ApplicationRecord.mapDbObjectToRecord(record, dbObject));
       }).catch(reject);
@@ -45,7 +62,7 @@ abstract class ApplicationRecord {
       const pathName = `${ this["_collectionName"] }/${ this["id"] }`;
       const request = ApplicationRecord._apiService.update(pathName, params);
 
-      request.then((dbObject : DbObject) => {
+      request.then((dbObject: DbObject) => {
         const record : T = new this();
         resolve(ApplicationRecord.mapDbObjectToRecord(record, dbObject));
       }).catch(reject);
