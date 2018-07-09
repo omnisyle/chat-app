@@ -2,9 +2,19 @@ import React from "react";
 import ChannelListInteractor from "./channel_list_interactor";
 import ChannelListPresenter from "./channel_list_presenter";
 import ChannelList from "./channel_list";
+import ChannelViewModel from "./channel_view_model";
 import "./styles.scss";
 
-class ChannelListContainer extends React.Component<{}, {}> {
+const initialState = {
+  channels: [],
+  loading: false,
+};
+
+type State = typeof initialState;
+
+class ChannelListContainer extends React.Component<{}, State> {
+
+  readonly state: State =  initialState;
 
   interactor: ChannelListInteractor;
   presenter: ChannelListPresenter;
@@ -17,10 +27,27 @@ class ChannelListContainer extends React.Component<{}, {}> {
 
     this.interactor = new
       ChannelListInteractor(this.presenter);
+
+    this.getChannels = this.getChannels.bind(this);
   }
 
   componentDidMount() {
+    this.getChannels();
+  }
 
+  getChannels() : Promise<void> {
+    return this.interactor.getChannels();
+  }
+
+  displayChannels(channels: ChannelViewModel[]) : void {
+    this.setState((state) => (
+      {
+        channels: [
+          ...state.channels,
+          ...channels
+        ]
+      }
+    ));
   }
 
   render() {

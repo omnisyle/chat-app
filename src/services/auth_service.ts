@@ -7,25 +7,22 @@ enum SignInOptions {
 
 class AuthService {
   static auth : CloudAuth = ApiService.auth;
+  static currentUser : User = ApiService.currentUser;
 
   static onUserSignedIn(callback: (user: User) => void) : AuthUnsubscribe {
     const unregisterObserver : AuthUnsubscribe = ApiService.auth.onAuthStateChanged(
       (user : firebase.User ) => {
-        const userModel : User = new User(
-          user.uid,
-          user.displayName,
-          user.email
-        );
-
+        const userModel : User = new User({
+          id: user.uid,
+          displayName: user.displayName,
+          email: user.email
+        });
+        this.currentUser = userModel;
         callback(userModel);
       }
     );
 
     return unregisterObserver;
-  }
-
-  static currentUser() : User {
-    return ApiService.currentUser;
   }
 }
 

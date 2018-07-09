@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
 import Conversation from "../Conversation";
 import ConversationHeader from "../ConversationHeader";
 import MessageForm from "../MessageForm";

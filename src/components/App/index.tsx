@@ -1,10 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import Sidebar from "../Sidebar";
 import Main from "../Main";
 import "./styles.scss";
 
-class App extends React.Component {
+class App extends Component<{}, {}> {
 
   render() {
     return (

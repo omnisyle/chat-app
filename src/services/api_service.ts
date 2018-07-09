@@ -18,11 +18,11 @@ const firebaseUser = firebase.auth().currentUser;
 
 class ApiService {
 
-  static currentUser : User = firebaseUser ? new User(
-    firebaseUser.uid,
-    firebaseUser.displayName,
-    firebaseUser.email
-  ) : null;
+  static currentUser : User = firebaseUser ? new User({
+    id: firebaseUser.uid,
+    displayName: firebaseUser.displayName,
+    email: firebaseUser.email
+  }) : null;
   static auth : CloudAuth = firebase.auth();
   static database : CloudDB = firebase.firestore();
 

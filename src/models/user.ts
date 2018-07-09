@@ -3,10 +3,10 @@ class User {
   displayName: string;
   email: string;
 
-  constructor(id: string, displayName: string, email: string) {
-    this.id = id;
-    this.displayName = displayName;
-    this.email = email;
+  constructor(params: User) {
+    this.id = params.id;
+    this.displayName = params.displayName;
+    this.email = params.email;
   }
 }
 

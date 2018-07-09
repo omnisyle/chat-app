@@ -25,12 +25,25 @@ declare enum WhereOperator {
   GREATER_THAN_OR_EQUAL_TO = ">="
 }
 
-type DBWhereClause = [string, WhereOperator , string]
+type DBWhereClause = [string, WhereOperator , any]
 
 declare class User {
   id: string;
   displayName: string;
   email: string;
 
-  constructor(id: string, displayName: string, email: string)
+  constructor(params: User)
+}
+
+declare class Channel {
+  id: string;
+  docRef: DocRef;
+  lastMessage: {
+    authorID: string,
+    messageID: string,
+    body: string,
+  };
+  members: { [key: string]: boolean };
+  createdAt: String;
+  updatedAt: String;
 }

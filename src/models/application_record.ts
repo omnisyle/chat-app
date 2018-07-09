@@ -46,7 +46,7 @@ abstract class ApplicationRecord {
     });
   }
 
-  create<T extends ApplicationRecord>(this: (new() => T), params: any) : Promise<T> {
+  create<T extends ApplicationRecord>(this: (new () => T), params: any) : Promise<T> {
     return new Promise<T> ((resolve, reject) => {
       const request = ApplicationRecord._apiService.create(this["_collectionName"], params);
 
@@ -57,7 +57,7 @@ abstract class ApplicationRecord {
     });
   }
 
-  update<T extends ApplicationRecord>(this: (new() => T), params: any) : Promise<T> {
+  update<T extends ApplicationRecord>(this: (new () => T), params: any) : Promise<T> {
     return new Promise<T> ((resolve, reject) => {
       const pathName = `${ this["_collectionName"] }/${ this["id"] }`;
       const request = ApplicationRecord._apiService.update(pathName, params);
@@ -69,7 +69,7 @@ abstract class ApplicationRecord {
     });
   }
 
-  delete<T extends ApplicationRecord>(this: (new() => T)) : Promise<void> {
+  delete<T extends ApplicationRecord>(this: (new () => T)) : Promise<void> {
     return new Promise<void>((resolve, reject) => {
       const pathName = `${ this["_collectionName"] }/${ this["id"] }`;
       const request = ApplicationRecord._apiService.delete(pathName);

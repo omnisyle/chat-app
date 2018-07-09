@@ -10,17 +10,6 @@ class Message extends ApplicationRecord {
   authorID: string;
   createdAt: string;
   updatedAt: string;
-
-  constructor(params: Message) {
-    super();
-    this.id = params.id;
-    this.docRef = params.docRef;
-    this.body = params.body;
-    this.channelID = params.channelID;
-    this.authorID = params.authorID;
-    this.createdAt = params.createdAt;
-    this.updatedAt = params.updatedAt;
-  }
 }
 
 export default Message;
