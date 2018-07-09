@@ -34,13 +34,13 @@ class ApiService {
     return ApiService.database.doc(path);
   }
 
-  get(path: string) : Promise<DBObject> {
-    return new Promise<DBObject>((resolve, reject) => {
+  get(path: string) : Promise<DbObject> {
+    return new Promise<DbObject>((resolve, reject) => {
       const docRef : DocRef = ApiService.database.doc(path);
       const request : Promise<DocumentSnapshot> = docRef.get();
 
       request.then((snapshot : DocumentSnapshot) => {
-        const dbObject : DBObject = {
+        const dbObject : DbObject = {
           id: docRef.id,
           ref: docRef,
           data: snapshot.data(),
@@ -50,12 +50,12 @@ class ApiService {
     });
   }
 
-  create(collection: string, params: object) : Promise<DBObject> {
-    return new Promise<DBObject>((resolve, reject) => {
+  create(collection: string, params: object) : Promise<DbObject> {
+    return new Promise<DbObject>((resolve, reject) => {
       const request : Promise<DocRef> = this.collection(collection).add(params);
 
       request.then((docRef) => {
-        const dbObject : DBObject = {
+        const dbObject : DbObject = {
           id: docRef.id,
           ref: docRef,
           data: params
@@ -65,8 +65,8 @@ class ApiService {
     });
   }
 
-  update(path: string, params: object) : Promise<DBObject> {
-    return new Promise<DBObject>((resolve, reject) => {
+  update(path: string, params: object) : Promise<DbObject> {
+    return new Promise<DbObject>((resolve, reject) => {
       const docRef : DocRef = this.doc(path);
       const updateRequest : Promise<void> = docRef.update(params);
 
@@ -74,7 +74,7 @@ class ApiService {
         .then(() => docRef.get())
         .then((snapshot : DocumentSnapshot) => {
 
-          const dbObject : DBObject = {
+          const dbObject : DbObject = {
             id: docRef.id,
             ref: docRef,
             data: snapshot.data(),

@@ -1,4 +1,4 @@
-type DBObject = {
+type DbObject = {
   id: string,
   ref: firebase.firestore.DocumentReference,
   data: {
